@@ -1,0 +1,23 @@
+pool:
+  vmImage: 'VS2017-Win2016'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: |
+    dotnet build --configuration $(buildConfiguration)
+    dotnet publish --configuration $(buildConfiguration) --output $(Build.BinariesDirectory)/publish
+  displayName: 'Build Application'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)/publish' 
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip' 
+    replaceExistingArchive: true 
+  displayName: 'Zip Build Output'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'

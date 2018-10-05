@@ -1,2 +1,2 @@
-# homepage
-My homepage at aashishkoirala.com.
+# aashishkoirala.com
+My homepage at aashishkoirala.com (under development).
