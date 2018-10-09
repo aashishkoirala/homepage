@@ -1,0 +1,150 @@
+﻿@*******************************************************************************************************************************
+ * Copyright © 2018 Aashish Koirala <https://www.aashishkoirala.com>
+ *
+ * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
+ *
+ * AKPWB is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Listor is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with AKPWB.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *******************************************************************************************************************************@
+
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@using AK.Homepage.Blog
+@model BlogViewModel
+@* ReSharper disable Html.PathError *@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta name="robots" content="@(Model.PreventIndexing ? "no" : string.Empty)index,follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="@Model.Description" />
+    <meta name="apple-mobile-web-app-title" content="Aashish Koirala">
+    <meta name="application-name" content="Aashish Koirala">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/images/favicons/apple-touch-icon.png" asp-append-version="true" />
+    <link rel="icon" type="image/png" sizes="32x32" href="~/images/favicons/favicon-32x32.png" asp-append-version="true" />
+    <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicons/favicon-16x16.png" asp-append-version="true" />
+    <link rel="manifest" href="~/site.webmanifest" asp-append-version="true" />
+    <link rel="mask-icon" href="~/images/favicons/safari-pinned-tab.svg" color="#5bbad5" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/blog.css" asp-append-version="true" />
+    <title>@Model.Title</title>
+</head>
+<body>
+    <div class="header" title="Aashish Koirala. Software Developer. Overthinker." onclick="location = '/'"></div>
+    <div class="navbar">
+        @if (Model.Category != Category.Meta)
+        {
+            <text>
+                Blog: @(Model.Category == Category.Tech ? "Software & Tech" : "Non-Tech")
+                &nbsp;|&nbsp;
+            </text>
+        }
+        <a href="/">Go Back Home</a>
+        @if (Model.Category != Category.Meta && Model.Post != null)
+        {
+            <text>&nbsp;|&nbsp;</text>
+            <a href="~/blog?type=@(Model.Category.ToString().ToLower())">See All Entries</a>
+        }
+    </div>
+    <div class="full-width">
+        @if (Model.Post != null)
+        {
+            <div class="post-body">
+                <h1>@Model.Post.Title</h1>
+                <div class="post-text">
+                    <div class="small-text">
+                        @if (Model.Category != Category.Meta)
+                        {
+                            <i>Published @(Model.Post.PublishedDate.ToString("MMM d, yyyy")).</i>
+                            <br />
+                            <text>For feedback or questions, please follow me on <a href="https://twitter.com/aashishkoirala">Twitter</a> so you can DM me.</text>
+                        }
+                    </div>
+                    <br />
+                    @Html.Raw(Model.Post.ContentHtml)
+                    <br /><br />
+                    @if (Model.Category != Category.Meta && Model.Post.Tags != null && Model.Post.Tags.Any())
+                    {
+                        <div class="small-text">
+                            Tagged as&nbsp;
+                            @foreach (var tag in Model.Post.Tags)
+                            {
+                                <span class="tag">@tag</span>
+                            }
+                        </div>
+                        <br /><br />
+                    }
+                    @if (Model.Category != Category.Meta)
+                    {
+                        <div class="small-text">
+                            @if (Model.Post.Previous != null)
+                            {
+                                <b>Previous:&nbsp;</b>
+                                <a href="~/blog/@(Model.Post.Previous.Slug)">@(Model.Post.Previous.Title)</a>
+                            }
+                            @if (Model.Post.Previous != null && Model.Post.Next != null)
+                            {
+                                <text>&nbsp;|&nbsp;</text>
+                            }
+                            @if (Model.Post.Next != null)
+                            {
+                                <b>Next:&nbsp;</b>
+                                <a href="~/blog/@(Model.Post.Next.Slug)">@(Model.Post.Next.Title)</a>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            if (Model.SideLinks != null)
+            {
+                <div class="side-links-container">
+                    @if (Model.SideLinks.Any())
+                    {
+                        <b>Other Recent Entries</b>
+                        <ul class="side-links">
+                            @foreach (var link in Model.SideLinks)
+                            {
+                                <li><a href="~/blog/@link.Slug">@link.Title</a></li>
+                            }
+                        </ul>
+                    }
+                </div>
+            }
+        }
+        else if (Model.MainLinks != null)
+        {
+            <div class="post-body">
+
+                @if (Model.MainLinks.Any())
+                {
+                    <b>All Entries</b>
+                    <ul class="side-links">
+                        @foreach (var link in Model.MainLinks)
+                        {
+                            <li><a href="~/blog/@link.Slug">@link.Title</a></li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <b>No entries at the moment.</b>
+                }
+            </div>
+        }
+    </div>
+</body>
+</html>

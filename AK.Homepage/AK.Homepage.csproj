@@ -5,7 +5,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Profile.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Profile.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommonMark.NET" Version="0.15.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+	<PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Home\Blog.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Home\Resume.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
 </Project>

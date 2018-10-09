@@ -18,23 +18,15 @@
  * 
  *******************************************************************************************************************************/
 
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Net;
+ using AK.Homepage.Blog;
 
 namespace AK.Homepage
 {
-    public static class Program
+    public class HomeViewModel
     {
-        public static void Main(string[] args) => BuildWebHost(args).Run();
-
-        public static IWebHost BuildWebHost(string[] args)
-        {
-            var builder = WebHost.CreateDefaultBuilder(args);
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-                builder = builder.UseKestrel(o => o.Listen(IPAddress.Any, 5858));
-            return builder.UseStartup<Startup>().Build();
-        }
+        public PostLink[] TechPostLinks { get; set; } = new PostLink[0];
+        public PostLink[] NonTechPostLinks { get; set; } = new PostLink[0];
+        public Profile.Link[] ContactLinks { get; set; }
+        public Profile.Link[] ProjectLinks { get; set; }
     }
 }

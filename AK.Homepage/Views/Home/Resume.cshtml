@@ -1,0 +1,136 @@
+﻿@*******************************************************************************************************************************
+ * Copyright © 2018 Aashish Koirala <https://www.aashishkoirala.com>
+ *
+ * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
+ *
+ * AKPWB is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Listor is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with AKPWB.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *******************************************************************************************************************************@
+
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model AK.Homepage.Profile.Resume
+@* ReSharper disable Html.PathError *@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta name="robots" content="index,follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="@(Model.Name): Software Architect and Developer Resume" />
+    <meta name="apple-mobile-web-app-title" content="Aashish Koirala">
+    <meta name="application-name" content="Aashish Koirala">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/images/favicons/apple-touch-icon.png" asp-append-version="true" />
+    <link rel="icon" type="image/png" sizes="32x32" href="~/images/favicons/favicon-32x32.png" asp-append-version="true" />
+    <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicons/favicon-16x16.png" asp-append-version="true" />
+    <link rel="manifest" href="~/site.webmanifest" asp-append-version="true" />
+    <link rel="mask-icon" href="~/images/favicons/safari-pinned-tab.svg" color="#5bbad5" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/resume.css" asp-append-version="true" />
+    <title>Resume | @Model.Name</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="name">
+                <h1>@Model.Name</h1>
+                <a href="/">Go Back Home</a>&nbsp;|&nbsp;
+                <a href="resume.pdf">Download PDF Resume</a>
+            </div>
+            <div class="contact">
+                @if (!string.IsNullOrWhiteSpace(Model.Contact))
+                {
+                    @Model.Contact
+                    <text>&nbsp;|&nbsp;</text>
+                }
+                @Model.Location
+                <br />
+                <a href="@Model.LinkedInUrl">@Model.LinkedInUrl</a>
+                <div class="technologies">
+                    <b>Technologies &amp; Tools</b>
+                    <ul>
+                        @foreach (var t in Model.Technologies)
+                        {
+                            <li>@t</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="resume-section">
+            <h2>SUMMARY</h2>
+            <ul>
+                @foreach (var s in Model.Summary)
+                {
+                    <li>@s</li>
+                }
+            </ul>
+            <b>GitHub:</b>&nbsp;
+            <a href="@Model.GitHubUrl">@Model.GitHubUrl</a><br />
+            <b>Website/Blog:</b>&nbsp;
+            <a href="@Model.WebsiteUrl">@Model.WebsiteUrl</a><br />
+        </div>
+        <div class="resume-section">
+            <br />
+            <h2>EXPERIENCE</h2>
+            @foreach (var job in Model.Experience)
+            {
+                <h3>@job.Organization,&nbsp;</h3>@job.Location<br />
+                <b>@job.Title,&nbsp;</b>@job.Timeframe<br />
+                <i>@job.Responsibilities</i>
+                <ul>
+                    @foreach (var ach in job.Achievements)
+                    {
+                        <li>
+                            @ach.Text
+                            @if (ach.Children != null && ach.Children.Any())
+                            {
+                                <ul>
+                                    @foreach (var child in ach.Children)
+                                    {
+                                        <li>
+                                            @child
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </li>
+                    }
+                </ul>
+                <br />
+            }
+        </div>
+        <div class="resume-section technologies-small">
+            <h2>TECHNOLOGIES &amp; TOOLS</h2>
+            <ul>
+                @foreach (var t in Model.Technologies)
+                {
+                    <li>@t</li>
+                }
+            </ul>
+            <br/>
+        </div>
+        <div class="resume-section">
+            <h2>EDUCATION</h2>
+            @foreach (var degree in Model.Education)
+            {
+                <b>@degree.Degree,&nbsp;</b>
+                @degree.School<br />
+            }
+        </div>
+    </div>
+</body>
+</html>

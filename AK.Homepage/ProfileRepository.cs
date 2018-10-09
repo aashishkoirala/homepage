@@ -18,23 +18,36 @@
  * 
  *******************************************************************************************************************************/
 
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Net;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System.IO;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace AK.Homepage
 {
-    public static class Program
+    public class ProfileRepository
     {
-        public static void Main(string[] args) => BuildWebHost(args).Run();
+        private readonly Task<Profile> _loadProfileTask;
 
-        public static IWebHost BuildWebHost(string[] args)
+        public ProfileRepository(ILoggerFactory loggerFactory)
         {
-            var builder = WebHost.CreateDefaultBuilder(args);
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-                builder = builder.UseKestrel(o => o.Listen(IPAddress.Any, 5858));
-            return builder.UseStartup<Startup>().Build();
+            var logger = loggerFactory.CreateLogger<ProfileRepository>();
+            _loadProfileTask = LoadProfile(logger);
+        }
+
+        public async Task<Profile> GetProfile() => await _loadProfileTask;
+
+        private static async Task<Profile> LoadProfile(ILogger logger)
+        {
+            logger.LogTrace("Loading profile database...");
+
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AK.Homepage.Profile.json"))
+            using (var streamReader = new StreamReader(stream))
+            {
+                var json = await streamReader.ReadToEndAsync();
+                return JsonConvert.DeserializeObject<Profile>(json);
+            }
         }
     }
 }

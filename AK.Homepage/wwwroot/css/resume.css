@@ -1,0 +1,148 @@
+/*******************************************************************************************************************************
+ * Copyright © 2018 Aashish Koirala <https://www.aashishkoirala.com>
+ * 
+ * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
+ *  
+ * AKPWB is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Listor is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with AKPWB.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *******************************************************************************************************************************/
+
+body {
+    margin: 10px;
+    background: white;
+    font-family: arial;
+    font-size: 10pt;
+    text-align: center;
+    line-height: 14pt;
+}
+
+h1 {
+    font-variant: small-caps;
+    font-size: 20pt;
+    line-height: 22pt;
+    font-weight: normal;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 16pt;
+    line-height: 18pt;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+
+h3 {
+    display: inline;
+    font-size: 12pt;
+}
+
+a:link, a:visited, a:active {
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 1000px;
+    display: block;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+@media (max-width: 500px) {
+    .container {
+        width: 90%;
+    }
+}
+
+.header {
+    width: 100%;
+}
+
+.name {
+    display: inline-block;
+    font-size: small;
+}
+
+@media (min-width: 500px) {
+    .contact {
+        float: right;
+        text-align: right;
+        position: relative;
+    }
+}
+
+@media (max-width: 500px) {
+    .contact {
+        margin-top: 10px;
+    }
+}
+
+div.technologies {
+    position: absolute;
+    display: inline-block;
+    text-align: left;
+    width: 100px;
+    left: 125px;
+    top: 60px;
+    background: lightgray;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+@media(max-width: 500px) {
+    div.technologies {
+        display: none;
+    }
+}
+
+    div.technologies ul {
+        list-style-type: none;
+        margin: 0;
+        margin-left: -40px;
+    }
+
+div.resume-section {
+    width: 870px;
+}
+
+    div.resume-section ul {
+        margin-left: -20px;
+    }
+
+        div.resume-section ul li ul {
+            margin-left: -10px;
+        }
+
+        @media (max-width: 500px) {
+            div.resume-section {
+                width: 100%;
+            }
+        }
+
+        @media (min-width: 500px) {
+            .technologies-small {
+                display: none;
+            }
+        }

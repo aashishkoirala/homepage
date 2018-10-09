@@ -1,0 +1,159 @@
+{
+  "contactLinks": [
+    {
+      "label": "GitHub / aashishkoirala",
+      "url": "https://github.com/aashishkoirala",
+      "title": "My Github Profile",
+      "icon": "github.png"
+    },
+    {
+      "label": "Twitter / @aashishkoirala",
+      "url": "https://twitter.com/aashishkoirala",
+      "title": "My Twitter Page",
+      "icon": "twitter.png"
+    },
+    {
+      "label": "LinkedIn / aashishkoirala",
+      "url": "https://www.linkedin.com/in/aashishkoirala",
+      "title": "My LinkedIn Profile",
+      "icon": "linkedin.png"
+    },
+    {
+      "label": "Stack Overflow / aashishkoirala",
+      "url": "https://stackoverflow.com/users/2662221/aashishkoirala?tab=profile",
+      "title": "My Stack Overflow Profile",
+      "icon": "stack.png"
+    }
+  ],
+  "projectLinks": [
+    {
+      "label": "Listor",
+      "title": "Listor",
+      "url": "https://listor.aashishkoirala.com"
+    },
+    {
+      "label": "Vault Online (Coming Soon)",
+      "title": "Vault Online (Coming Soon)",
+      "url2": "https://vault.aashishkoirala.com"
+    },
+    {
+      "label": "Open Source Projects",
+      "title": "My Open Source Projects",
+      "url": "https://github.com/aashishkoirala/repositories",
+      "icon": "github.png"
+    },
+    {
+      "label": "Libraries on NuGet",
+      "title": "My Libraries On Nuget",
+      "url": "https://www.nuget.org/profiles/aashishkoirala",
+      "icon": "nuget.png"
+    },
+    {
+      "icon": ""
+    },
+    {
+      "label": "Libraries on NPM",
+      "title": "My Libraries On NPM",
+      "url": "https://www.npmjs.com/~aashishkoirala",
+      "icon": "npm.png"
+    }
+  ],
+  "professionalResume": {
+    "name": "Aashish Koirala",
+    "location": "Massachusetts, USA",
+    "linkedInUrl": "https://www.linkedin.com/in/aashishkoirala",
+    "gitHubUrl": "https://github.com/aashishkoirala",
+    "websiteUrl": "https://www.aashishkoirala.com",
+    "summary": [
+      "Seasoned software development professional with 14 years in the field seeking a hands-on role at the principal or architect level",
+      "Expertise in building and maintaining secure and scalable applications with .NET/C# and JS, DevOps on the Azure cloud, and leading and managing development teams"
+    ],
+    "technologies": [
+      ".NET / C#",
+      ".NET Core",
+      "ASP.NET",
+      "Azure",
+      "Service Fabric",
+      "DevOps",
+      "OAuth2/OIDC",
+      "NHibernate/EF",
+      "MSSQL/T-SQL",
+      "JavaScript",
+      "Angular",
+      "React",
+      "Node",
+      "Git",
+      "PowerShell"
+    ],
+    "experience": [
+      {
+        "organization": "Radius",
+        "location": "Bedford, MA",
+        "title": "Architect, Software R&D",
+        "timeframe": "July 2012 - Present",
+        "responsibilities":
+          "Software architecture, modeling and development; leadership and mentoring of Agile offshore team; DevOps (cloud management, DB administration, build/deployment and other developer tooling)",
+        "achievements": [
+          {
+            "text": "Helped build and now oversee cloud based, microservices driven enterprise system",
+            "children": [
+              "Ported entire system from on-premises to Azure PaaS",
+              "Migrated from WCF to Service Fabric and from WIF/WS-Fed to OAuth2/OpenId Connect",
+              "Migrated from MSSQL on-premises to SQL Azure PaaS, from AppFabric cache to Redis",
+              "Rebuilt frontend using Angular and SignalR"
+            ]
+          },
+          {
+            "text":
+              "Led the team that built a sophisticated global payroll system from inception to release and now supporting over 150 customers across over 20 countries"
+          },
+          { "text": "Helped build a homegrown workflow orchestration system based on Service Bus messaging" }
+        ]
+      },
+      {
+        "organization": "Verisk Health",
+        "location": "Waltham, MA",
+        "title": "Director of Engineering",
+        "timeframe": "August 2008 - July 2012",
+        "responsibilities":
+          "Software architecture and development; management of Agile onshore/offshore teams; demonstrating deliverables to customers; representing Technology in sales calls.",
+        "achievements": [
+          {
+            "text":
+              "Took over a post-acquisition, undocumented and abandoned codebase, brought it back to life, re-engineering it in the process, and got it ready for primetime, thus becoming the resident expert for the system"
+          },
+          { "text": "Introduced standard ETL tools and practices to the BI delivery process" },
+          { "text": "Helped transition the software development process from waterfall to Agile" },
+          {
+            "text":
+              "In charge of the organization's flagship OLAP-driven ASP.NET-based healthcare analytics platform that served several large-sized customers"
+          }
+        ]
+      },
+      {
+        "organization": "D2Hawkeye Services",
+        "location": "Kathmandu, Nepal",
+        "title": "Software Architect",
+        "timeframe": "November 2004 - August 2008",
+        "responsibilities":
+          "Software architecture and development; management of various development teams; primary customer contact",
+        "achievements": [
+          {
+            "text":
+              "Built, delivered and maintained 12 large scale projects using various technologies (including .NET, Java/J2EE, C/C++, SQL Server and Oracle)"
+          }
+        ]
+      }
+    ],
+    "education": [
+      {
+        "degree": "M.S. in Computer Systems Engineering",
+        "school": "Boston University, Boston, MA"
+      },
+      {
+        "degree": "B.E. in Computer Engineering",
+        "school": "Tribhuvan University Institute of Engineering, Nepal"
+      }
+    ]
+  }
+}

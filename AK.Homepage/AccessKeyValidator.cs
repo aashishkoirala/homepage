@@ -18,23 +18,30 @@
  * 
  *******************************************************************************************************************************/
 
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Net;
 
 namespace AK.Homepage
 {
-    public static class Program
+    public class AccessKeyValidator
     {
-        public static void Main(string[] args) => BuildWebHost(args).Run();
+        private readonly string _accessKey;
+        private readonly ILogger _logger;
 
-        public static IWebHost BuildWebHost(string[] args)
+        public AccessKeyValidator(IConfiguration configuration, ILoggerFactory loggerFactory)
         {
-            var builder = WebHost.CreateDefaultBuilder(args);
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-                builder = builder.UseKestrel(o => o.Listen(IPAddress.Any, 5858));
-            return builder.UseStartup<Startup>().Build();
+            _accessKey = configuration["AccessKey"];
+            _logger = loggerFactory.CreateLogger<AccessKeyValidator>();
+        }
+
+        public void Validate(string accessKey)
+        {
+            if (string.IsNullOrWhiteSpace(accessKey)) throw new ArgumentNullException(nameof(accessKey));
+            if (accessKey.Equals(_accessKey, StringComparison.Ordinal)) return;
+
+            _logger.LogError("Attempt to perform privileged operation with invalid access key {accessKey}.", accessKey);
+            throw new UnauthorizedAccessException();
         }
     }
 }
