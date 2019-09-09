@@ -1,5 +1,5 @@
 ﻿/*******************************************************************************************************************************
- * Copyright © 2018 Aashish Koirala <https://www.aashishkoirala.com>
+ * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
  *  
@@ -8,7 +8,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Listor is distributed in the hope that it will be useful,
+ * AKPWB is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -31,7 +31,7 @@ namespace AK.Homepage
     [ServiceFilter(typeof(LogActionAndHandleErrorFilter))]
     public class HomeController : Controller
     {
-        private static readonly Post NotFoundPost = CreateNotFoundPost();
+        private static readonly Post _notFoundPost = CreateNotFoundPost();
         private readonly BlogCache _blogCache;
         private readonly ProfileRepository _profileRepository;
         private readonly AccessKeyValidator _accessKeyValidator;
@@ -158,7 +158,7 @@ namespace AK.Homepage
             // If a blog post is not found, we render a blog post page with the "not found" message
             // rendered as the post.
 
-            var post = NotFoundPost;
+            var post = _notFoundPost;
             Response.Headers["X-AK-SkipCache"] = "1";
             return View("Blog", new BlogViewModel {Category = post.Category, Post = post, PreventIndexing = true});
         }

@@ -1,5 +1,5 @@
 ﻿/*******************************************************************************************************************************
- * Copyright © 2018 Aashish Koirala <https://www.aashishkoirala.com>
+ * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
  *  
@@ -8,7 +8,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Listor is distributed in the hope that it will be useful,
+ * AKPWB is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -31,7 +31,7 @@ namespace AK.Homepage.Blog
     public class BlogCache
     {
         private static Task<Cache> _cacheTask;
-        private static readonly ReaderWriterLockSlim CacheTaskLock = new ReaderWriterLockSlim();
+        private static readonly ReaderWriterLockSlim _cacheTaskLock = new ReaderWriterLockSlim();
         private readonly int _homeLinkCount;
         private readonly ILogger _logger;
         private readonly BlogRepository _blogRepository;
@@ -207,14 +207,14 @@ namespace AK.Homepage.Blog
         {
             get
             {
-                using (CacheTaskLock.LockRead(true, "Cannot get read lock on CacheTaskLock."))
+                using (_cacheTaskLock.LockRead(true, "Cannot get read lock on CacheTaskLock."))
                 {
                     return _cacheTask;
                 }
             }
             set
             {
-                using (CacheTaskLock.LockWrite(true, "Cannot get write lock on CacheTaskLock."))
+                using (_cacheTaskLock.LockWrite(true, "Cannot get write lock on CacheTaskLock."))
                 {
                     _cacheTask = value;
                 }

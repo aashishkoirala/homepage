@@ -1,5 +1,5 @@
 ﻿/*******************************************************************************************************************************
- * Copyright © 2018 Aashish Koirala <https://www.aashishkoirala.com>
+ * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
  *  
@@ -8,7 +8,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Listor is distributed in the hope that it will be useful,
+ * AKPWB is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -18,6 +18,7 @@
  * 
  *******************************************************************************************************************************/
 
+using System;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.IO;
@@ -43,11 +44,11 @@ namespace AK.Homepage
             logger.LogTrace("Loading profile database...");
 
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AK.Homepage.Profile.json"))
-            using (var streamReader = new StreamReader(stream))
-            {
-                var json = await streamReader.ReadToEndAsync();
-                return JsonConvert.DeserializeObject<Profile>(json);
-            }
+			using (var streamReader = new StreamReader(stream ?? throw new ArgumentNullException(nameof(stream))))
+			{
+				var json = await streamReader.ReadToEndAsync();
+				return JsonConvert.DeserializeObject<Profile>(json);
+			}
         }
     }
 }

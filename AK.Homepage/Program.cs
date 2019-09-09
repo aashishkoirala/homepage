@@ -1,5 +1,5 @@
 ﻿/*******************************************************************************************************************************
- * Copyright © 2018 Aashish Koirala <https://www.aashishkoirala.com>
+ * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
  *  
@@ -8,7 +8,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Listor is distributed in the hope that it will be useful,
+ * AKPWB is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -25,16 +25,16 @@ using System.Net;
 
 namespace AK.Homepage
 {
-    public static class Program
-    {
-        public static void Main(string[] args) => BuildWebHost(args).Run();
+	public static class Program
+	{
+		public static void Main(string[] args) => BuildWebHost(args).Run();
 
-        public static IWebHost BuildWebHost(string[] args)
-        {
-            var builder = WebHost.CreateDefaultBuilder(args);
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-                builder = builder.UseKestrel(o => o.Listen(IPAddress.Any, 5858));
-            return builder.UseStartup<Startup>().Build();
-        }
-    }
+		public static IWebHost BuildWebHost(string[] args)
+		{
+			var builder = WebHost.CreateDefaultBuilder(args);
+			if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+				builder = builder.UseKestrel(o => o.Listen(IPAddress.Any, 5858));
+			return builder.UseStartup<Startup>().Build();
+		}
+	}
 }

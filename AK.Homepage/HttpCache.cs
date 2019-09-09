@@ -1,5 +1,5 @@
 ﻿/*******************************************************************************************************************************
- * Copyright © 2018 Aashish Koirala <https://www.aashishkoirala.com>
+ * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
  *  
@@ -8,7 +8,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Listor is distributed in the hope that it will be useful,
+ * AKPWB is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -36,8 +36,8 @@ namespace AK.Homepage
 {
     public class HttpCache
     {
-        private static readonly IDictionary<(string, bool), Entry> Cache = new Dictionary<(string, bool), Entry>();
-        private static readonly ReaderWriterLockSlim CacheLock = new ReaderWriterLockSlim();
+        private static readonly IDictionary<(string, bool), Entry> _cache = new Dictionary<(string, bool), Entry>();
+        private static readonly ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim();
         private readonly RequestDelegate _next;
         private readonly string[] _pathEqualsList;
         private readonly string[] _pathStartsWithList;
@@ -53,15 +53,15 @@ namespace AK.Homepage
 
         public static void Clear(Func<string, bool> pathPredicate = null)
         {
-            using (CacheLock.LockWrite(true, "Cannot acquire write lock on HttpCache."))
+            using (_cacheLock.LockWrite(true, "Cannot acquire write lock on HttpCache."))
             {
                 if (pathPredicate == null)
                 {
-                    Cache.Clear();
+                    _cache.Clear();
                     return;
                 }
-                var keys = Cache.Keys.Where(x => pathPredicate(x.Item1)).ToArray();
-                foreach (var key in keys) Cache.Remove(key);
+                var keys = _cache.Keys.Where(x => pathPredicate(x.Item1)).ToArray();
+                foreach (var key in keys) _cache.Remove(key);
             }
         }
 
@@ -112,9 +112,9 @@ namespace AK.Homepage
                 path, isGZipCompressed);
 
             Entry entry = null;
-            using (var locked = CacheLock.LockRead())
+            using (var locked = _cacheLock.LockRead())
             {
-                if (locked != null) Cache.TryGetValue(key, out entry);
+                if (locked != null) _cache.TryGetValue(key, out entry);
                 else _logger.LogWarning("Could not acquire read lock on HttpCache while looking up {path}.", path);
             }
 
@@ -182,9 +182,9 @@ namespace AK.Homepage
 
         private static void WriteEntry((string, bool) key, Entry entry)
         {
-            using (var locked = CacheLock.LockWrite())
+            using (var locked = _cacheLock.LockWrite())
             {
-                if (locked != null && !Cache.ContainsKey(key)) Cache[key] = entry;
+                if (locked != null && !_cache.ContainsKey(key)) _cache[key] = entry;
             }
         }
 
