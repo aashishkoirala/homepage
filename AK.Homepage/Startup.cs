@@ -1,4 +1,4 @@
-﻿/*******************************************************************************************************************************
+/*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -57,6 +57,7 @@ namespace AK.Homepage
 				.AddSingleton<ProfileRepository>()
 				.AddSingleton<AccessKeyValidator>()
 				.AddSingleton<MetadataGenerator>()
+				.AddSingleton<PageAccessRecorderIgnoredUserAgents>()
 				.AddSingleton<PageAccessRecorder>()
 				.AddScoped<LogActionAndHandleErrorFilter>();
 			

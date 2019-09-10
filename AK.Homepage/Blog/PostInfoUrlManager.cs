@@ -1,4 +1,4 @@
-﻿/*******************************************************************************************************************************
+/*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -66,7 +66,7 @@ namespace AK.Homepage.Blog
 
             var publishedDatePart = parts[1].Substring(0, firstHyphen);
             if (!DateTimeOffset.TryParseExact(publishedDatePart, "yyyyMMdd",
-                new DateTimeFormatInfo(), DateTimeStyles.AssumeUniversal, out DateTimeOffset publishedDate))
+                new DateTimeFormatInfo(), DateTimeStyles.AssumeUniversal, out var publishedDate))
                 return null;
 
             var restOfUrl = parts[1].Substring(firstHyphen + 1);

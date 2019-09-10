@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
@@ -20,14 +20,19 @@ namespace AK.Homepage
 		private readonly BlockingCollection<PageAccess> _pageAccessList = new BlockingCollection<PageAccess>();
 		private readonly IConfiguration _configuration;
 		private readonly ILogger<PageAccessRecorder> _logger;
+		private readonly PageAccessRecorderIgnoredUserAgents _ignoredUserAgents;
 
 		private Task _messagePumpTask;
 		private CancellationTokenSource _messagePumpTaskCancellationTokenSource;
 
-		public PageAccessRecorder(IConfiguration configuration, ILogger<PageAccessRecorder> logger)
+		public PageAccessRecorder(
+			IConfiguration configuration,
+			ILogger<PageAccessRecorder> logger,
+			PageAccessRecorderIgnoredUserAgents ignoredUserAgents)
 		{
 			_configuration = configuration;
 			_logger = logger;
+			_ignoredUserAgents = ignoredUserAgents;
 		}
 
 		public void Record(PageAccess pageAccess)
@@ -68,6 +73,8 @@ namespace AK.Homepage
 		{
 			foreach (var pageAccess in _pageAccessList.GetConsumingEnumerable(cancellationToken))
 			{
+				if (_ignoredUserAgents.ShouldIgnore(pageAccess.UserAgent)) continue;
+
 				try
 				{
 					using (var dbContext = new MainContext(_configuration))

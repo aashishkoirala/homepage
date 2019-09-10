@@ -1,4 +1,4 @@
-﻿/*******************************************************************************************************************************
+/*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -22,40 +22,36 @@ using System.Linq;
 
 namespace AK.Homepage.Blog
 {
-    public class BlogViewModel
-    {
-        public Category Category { get; set; }
-        public Post Post { get; set; }
-        public PostLink[] SideLinks { get; set; } = new PostLink[0];
-        public PostLink[] MainLinks { get; set; } = new PostLink[0];
-        public bool PreventIndexing { get; set; }
+	public class BlogViewModel
+	{
+		public Category Category { get; set; }
+		public Post Post { get; set; }
+		public PostLink[] SideLinks { get; set; } = new PostLink[0];
+		public PostLink[] MainLinks { get; set; } = new PostLink[0];
+		public bool PreventIndexing { get; set; }
 
-        public string Description
-        {
-            get
-            {
-                var description = "Aashish Koirala: ";
-                if (Category != Category.Meta && Post != null)
-                {
-                    description += Post.Title + ". ";
-                    if (Post.Tags != null && Post.Tags.Any()) description += " " + string.Join(", ", Post.Tags);
-                    description += " " + Post.Blurb;
-                }
-                else if (Category == Category.Meta && Post != null) description += Post.Title;
-                else description += "Software Architect and Developer Personal Website and Blog";
-                return description;
-            }
-        }
+		public string Description
+		{
+			get
+			{
+				var description = "Aashish Koirala: ";
+				if (Category != Category.Meta && Post != null)
+				{
+					description += Post.Title + ". ";
+					if (Post.Tags != null && Post.Tags.Any()) description += " " + string.Join(", ", Post.Tags);
+					description += " " + Post.Blurb;
+				}
+				else if (Category == Category.Meta && Post != null) description += Post.Title;
+				else description += "Software Architect and Developer Personal Website and Blog";
 
-        public string Title
-        {
-            get
-            {
-                if (Post != null) return $"{Post.Title} | Aashish Koirala";
-                return Category != Category.Meta
-                    ? $"Blog: {(Category == Category.Tech ? "Software & Tech" : "Non - Tech")} | Aashish Koirala"
-                    : "Aashish Koirala";
-            }
-        }
-    }
+				return description;
+			}
+		}
+
+		public string Title => Post != null
+			? $"{Post.Title} | Aashish Koirala"
+			: Category != Category.Meta
+				? $"Blog: {(Category == Category.Tech ? "Software & Tech" : "Non - Tech")} | Aashish Koirala"
+				: "Aashish Koirala";
+	}
 }

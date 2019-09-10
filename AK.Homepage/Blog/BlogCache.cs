@@ -1,4 +1,4 @@
-﻿/*******************************************************************************************************************************
+/*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -40,7 +40,7 @@ namespace AK.Homepage.Blog
         public BlogCache(IConfiguration config, ILoggerFactory loggerFactory,
             BlogRepository blogRepository, AccessKeyValidator accessKeyValidator)
         {
-            _homeLinkCount = int.TryParse(config["HomeLinkCount"], out int c) ? c : 10;
+            _homeLinkCount = int.TryParse(config["HomeLinkCount"], out var c) ? c : 10;
             _logger = loggerFactory.CreateLogger<BlogCache>();
             _blogRepository = blogRepository;
             _accessKeyValidator = accessKeyValidator;
@@ -65,7 +65,7 @@ namespace AK.Homepage.Blog
             var cache = await InitializeCacheIfNeeded();
             if (cache == null) return new PostLink[0];
 
-            if (!cache.PostLinksByCategory.TryGetValue(category, out PostLink[] links)) links = new PostLink[0];
+            if (!cache.PostLinksByCategory.TryGetValue(category, out var links)) links = new PostLink[0];
             if (slugToExclude != null) links = links.Where(x => x.Slug != slugToExclude).ToArray();
             if (top > 0) links = links.Take(top).ToArray();
 
@@ -77,9 +77,8 @@ namespace AK.Homepage.Blog
             _logger.LogTrace("Getting blog post with slug {slug}...", slug);
 
             var cache = await InitializeCacheIfNeeded();
-            var postCache = cache == null ? null : (cache.PostsBySlug.TryGetValue(slug, out PostCache p) ? p : null);
-            if (postCache == null) return null;
-            return await postCache;
+            var postCache = cache == null ? null : (cache.PostsBySlug.TryGetValue(slug, out var p) ? p : null);
+            return postCache == null ? null : await postCache;
         }
 
         public async Task Reload(string accessKey)
@@ -126,7 +125,7 @@ namespace AK.Homepage.Blog
             _logger.LogTrace("Reloading blog post with slug {slug}...", slug);
 
             var cache = await InitializeCacheIfNeeded();
-            var postCache = cache == null ? null : (cache.PostsBySlug.TryGetValue(slug, out PostCache p) ? p : null);
+            var postCache = cache == null ? null : (cache.PostsBySlug.TryGetValue(slug, out var p) ? p : null);
             if (postCache == null)
             {
                 _logger.LogWarning("Could not find post with slug {slug} to reload.", slug);
@@ -134,8 +133,8 @@ namespace AK.Homepage.Blog
             }
             HttpCache.Clear(x =>
                 x == "/" || x == "/sitemap" || x.StartsWith("/rss") ||
-                x.StartsWith("/blog") && !x.EndsWith(".png") ||
-                x.StartsWith("/blog/") && x.Contains($"{slug}"));
+                (x.StartsWith("/blog") && !x.EndsWith(".png")) ||
+                (x.StartsWith("/blog/") && x.Contains($"{slug}")));
             postCache.Reset();
         }
 
@@ -189,7 +188,7 @@ namespace AK.Homepage.Blog
 
         private PostLink[] GetHomePostLinks(Cache cache, Category category)
         {
-            var links = cache.PostLinksByCategory.TryGetValue(category, out PostLink[] l)
+            var links = cache.PostLinksByCategory.TryGetValue(category, out var l)
                 ? l.Take(_homeLinkCount).ToArray()
                 : new PostLink[0];
 

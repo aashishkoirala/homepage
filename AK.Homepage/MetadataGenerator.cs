@@ -1,4 +1,4 @@
-﻿/*******************************************************************************************************************************
+/*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -38,7 +38,7 @@ namespace AK.Homepage
         public MetadataGenerator(ILoggerFactory loggerFactory, IConfiguration config, BlogCache blogCache)
         {
             _logger = loggerFactory.CreateLogger<MetadataGenerator>();
-            _rssItemCount = int.TryParse(config["RssItemCount"], out int c) ? c : 15;
+            _rssItemCount = int.TryParse(config["RssItemCount"], out var c) ? c : 15;
             _blogCache = blogCache;
         }
 
