@@ -1,0 +1,84 @@
+trigger:
+- develop
+
+variables:
+  containerVersion: "1.0"
+  chartVersion: "1.0.0"
+  appName: ak-homepage
+  acrName: akprodcr
+  kubernetesNamespace: ak-prod
+
+stages:
+- stage: Build
+  displayName: Build
+  jobs:
+  - job: Build
+    displayName: Build And Push Container
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Login to Azure Container Registry
+      inputs:
+        command: login
+        containerRegistry: akProdContainerRegistryConnection
+    - task: Docker@2
+      displayName: Build and Push Container
+      inputs:
+        command: buildAndPush
+        repository: $(appName)
+        tags: $(containerVersion)
+        Dockerfile: ./DOCKERFILE
+    - task: HelmInstaller@1
+      displayName: Install and Initialize Helm Client
+    - task: HelmDeploy@0
+      displayName: Package Helm Chart
+      inputs:
+        command: package
+        chartPath: k8s/chart/$(appName)
+        destination: $(Build.ArtifactStagingDirectory)
+    - task: AzureCLI@1
+      displayName: Push Helm Chart to Azure Container Registry
+      inputs:
+        azureSubscription: akProdSubscriptionConnection
+        scriptLocation: inlineScript
+        inlineScript: 'az acr helm push --force -n $(acrName) $(Build.ArtifactStagingDirectory)/$(appName)-$(chartVersion).tgz'
+
+- stage: Publish
+  displayName: Install or Upgrade Helm Chart on AKS
+  dependsOn: Build
+  jobs:
+  - deployment: Publish
+    displayName: Install or Upgrade Helm Chart on AKS
+    pool:
+      vmImage: ubuntu-latest
+    environment: Production
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: HelmInstaller@1
+            displayName: Install and Initialize Helm Client
+          - task: AzureCLI@1
+            displayName: Add Azure Container Registry Helm Repository
+            inputs:
+              azureSubscription: akProdSubscriptionConnection
+              scriptLocation: inlineScript
+              inlineScript: 'az acr helm repo add -n $(acrName)'
+          - task: HelmDeploy@0
+            displayName: Download Helm Chart from Azure Container Registry
+            inputs:
+              connectionType: Kubernetes Service Connection
+              kubernetesServiceEndpoint: akProdKubeConnection
+              command: repo
+              arguments: update
+          - task: HelmDeploy@0
+            displayName: Install or Upgrade Helm Chart on AKS
+            inputs:
+              connectionType: Kubernetes Service Connection
+              kubernetesServiceEndpoint: akProdKubeConnection
+              namespace: $(kubernetesNamespace)
+              command: upgrade
+              releaseName: $(appName)
+              chartName: $(acrName)/$(appName)
+              arguments: "--tiller-namespace=$(kubernetesNamespace) --version=$(chartVersion)"

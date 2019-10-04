@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ak-prod-ingress
+spec:
+  rules:
+  - host: 'k8s.aashishkoirala.com'
+    http:
+      paths:
+      - backend:
+          serviceName: ak-homepage
+          servicePort: 80
+        path: /
+  tls:
+  - hosts:
+    - 'k8s.aashishkoirala.com'
+    secretName: ak-prod-tls
