@@ -1,4 +1,4 @@
-﻿/*******************************************************************************************************************************
+/*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -53,16 +53,14 @@ namespace AK.Homepage
 
         public static void Clear(Func<string, bool> pathPredicate = null)
         {
-            using (_cacheLock.LockWrite(true, "Cannot acquire write lock on HttpCache."))
-            {
-                if (pathPredicate == null)
-                {
-                    _cache.Clear();
-                    return;
-                }
-                var keys = _cache.Keys.Where(x => pathPredicate(x.Item1)).ToArray();
-                foreach (var key in keys) _cache.Remove(key);
-            }
+	        using var _ = _cacheLock.LockWrite(true, "Cannot acquire write lock on HttpCache.");
+	        if (pathPredicate == null)
+	        {
+		        _cache.Clear();
+		        return;
+	        }
+	        var keys = _cache.Keys.Where(x => pathPredicate(x.Item1)).ToArray();
+	        foreach (var key in keys) _cache.Remove(key);
         }
 
         public static async Task<(string, bool, string)[]> Warm(string baseAddress, string[] relativeUrls)
@@ -79,16 +77,16 @@ namespace AK.Homepage
                     var request = new HttpRequestMessage(HttpMethod.Get, url);
                     tasks[url] = httpClient.SendAsync(request);
                 }
-                foreach (var item in tasks)
+                foreach (var (key, value) in tasks)
                 {
                     try
                     {
-                        await item.Value;
-                        returnValue.Add((item.Key, true, null));
+                        await value;
+                        returnValue.Add((key, true, null));
                     }
                     catch (Exception ex)
                     {
-                        returnValue.Add((item.Key, false, ex.Message));
+                        returnValue.Add((key, false, ex.Message));
                     }
                 }
             }
@@ -138,7 +136,6 @@ namespace AK.Homepage
             {
                 context.Response.StatusCode = StatusCodes.Status304NotModified;
                 context.Response.ContentLength = 0;
-                context.Response.Body = null;
                 return;
             }
 
@@ -164,7 +161,7 @@ namespace AK.Homepage
 
             var entry = new Entry();
             var originalStream = context.Response.Body;
-            using (var memoryStream = new MemoryStream())
+            await using (var memoryStream = new MemoryStream())
             {
                 context.Response.Body = memoryStream;
                 await _next.Invoke(context);
@@ -182,10 +179,8 @@ namespace AK.Homepage
 
         private static void WriteEntry((string, bool) key, Entry entry)
         {
-            using (var locked = _cacheLock.LockWrite())
-            {
-                if (locked != null && !_cache.ContainsKey(key)) _cache[key] = entry;
-            }
+	        using var locked = _cacheLock.LockWrite();
+	        if (locked != null && !_cache.ContainsKey(key)) _cache[key] = entry;
         }
 
         private class Entry

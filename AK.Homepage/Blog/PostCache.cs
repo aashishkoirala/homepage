@@ -1,4 +1,4 @@
-﻿/*******************************************************************************************************************************
+/*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -46,17 +46,13 @@ namespace AK.Homepage.Blog
         {
             get
             {
-                using (_taskLock.LockRead(true, "Cannot acquire read lock on task."))
-                {
-                    return _postTask;
-                }
+	            using var _ = _taskLock.LockRead(true, "Cannot acquire read lock on task.");
+	            return _postTask;
             }
             set
             {
-                using (_taskLock.LockWrite(true, "Cannot acquire write lock on task."))
-                {
-                    _postTask = value;
-                }
+	            using var _ = _taskLock.LockWrite(true, "Cannot acquire write lock on task.");
+	            _postTask = value;
             }
         }
 

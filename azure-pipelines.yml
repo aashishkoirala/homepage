@@ -1,10 +1,17 @@
 pool:
-  vmImage: 'VS2017-Win2016'
+  vmImage: ubuntu-16.04
 
 variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET Core 3.0 SDK'
+  inputs:
+    packageType: sdk
+    version: 3.0.x
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
 - script: |
     dotnet build --configuration $(buildConfiguration)
     dotnet publish --configuration $(buildConfiguration) --output $(Build.BinariesDirectory)/publish
@@ -12,11 +19,11 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)/publish' 
+    rootFolderOrFile: '$(Build.BinariesDirectory)/publish'
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip' 
-    replaceExistingArchive: true 
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
   displayName: 'Zip Build Output'
 
 - task: PublishBuildArtifacts@1

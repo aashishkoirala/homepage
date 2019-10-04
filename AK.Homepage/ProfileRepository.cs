@@ -1,4 +1,4 @@
-﻿/*******************************************************************************************************************************
+/*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -43,12 +43,10 @@ namespace AK.Homepage
         {
             logger.LogTrace("Loading profile database...");
 
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AK.Homepage.Profile.json"))
-			using (var streamReader = new StreamReader(stream ?? throw new ArgumentNullException(nameof(stream))))
-			{
-				var json = await streamReader.ReadToEndAsync();
-				return JsonConvert.DeserializeObject<Profile>(json);
-			}
+            await using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AK.Homepage.Profile");
+            using var streamReader = new StreamReader(stream ?? throw new ArgumentNullException(nameof(stream)));
+            var json = await streamReader.ReadToEndAsync();
+            return JsonConvert.DeserializeObject<Profile>(json);
         }
     }
 }

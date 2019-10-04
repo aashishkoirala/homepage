@@ -206,17 +206,13 @@ namespace AK.Homepage.Blog
         {
             get
             {
-                using (_cacheTaskLock.LockRead(true, "Cannot get read lock on CacheTaskLock."))
-                {
-                    return _cacheTask;
-                }
+	            using var _ = _cacheTaskLock.LockRead(true, "Cannot get read lock on CacheTaskLock.");
+	            return _cacheTask;
             }
             set
             {
-                using (_cacheTaskLock.LockWrite(true, "Cannot get write lock on CacheTaskLock."))
-                {
-                    _cacheTask = value;
-                }
+	            using var _ = _cacheTaskLock.LockWrite(true, "Cannot get write lock on CacheTaskLock.");
+	            _cacheTask = value;
             }
         }
 

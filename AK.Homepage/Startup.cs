@@ -20,10 +20,10 @@
 
 using AK.Homepage.Blog;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
@@ -33,7 +33,7 @@ namespace AK.Homepage
 {
 	public class Startup
 	{
-		public Startup(IHostingEnvironment env)
+		public Startup(IHostEnvironment env)
 		{
 			var builder = new ConfigurationBuilder()
 				.SetBasePath(env.ContentRootPath)
@@ -60,8 +60,8 @@ namespace AK.Homepage
 				.AddSingleton<PageAccessRecorderIgnoredUserAgents>()
 				.AddSingleton<PageAccessRecorder>()
 				.AddScoped<LogActionAndHandleErrorFilter>();
-			
-			services.AddMvc();
+
+			services.AddControllersWithViews();
 			services.AddResponseCompression(x => x.EnableForHttps = true);
 			services.AddLogging(x => x
 				.AddApplicationInsights(Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"])
@@ -84,7 +84,7 @@ namespace AK.Homepage
 			});
 		}
 
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, PageAccessRecorder recorder)
+		public void Configure(IApplicationBuilder app, IHostEnvironment env, PageAccessRecorder recorder)
 		{
 			recorder.Start();
 
@@ -101,7 +101,8 @@ namespace AK.Homepage
 				.UseStatusCodePagesWithReExecute(errorPath)
 				.UseResponseCompression()
 				.UseMiddleware<BlogImageServer>()
-				.UseMvcWithDefaultRoute()
+				.UseRouting()
+				.UseEndpoints(e => e.MapDefaultControllerRoute())
 				.UseFileServer();
 		}
 

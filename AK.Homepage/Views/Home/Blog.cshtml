@@ -1,4 +1,4 @@
-﻿@*******************************************************************************************************************************
+@*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  *
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -69,9 +69,9 @@
                     <div class="small-text">
                         @if (Model.Category != Category.Meta)
                         {
-                            <i>Published @(Model.Post.PublishedDate.ToString("MMM d, yyyy")).</i>
-                            <br />
-                            <text>For feedback or questions, please follow me on <a href="https://twitter.com/aashishkoirala">Twitter</a> so you can DM me.</text>
+	                        <i>Published @(Model.Post.PublishedDate.ToString("MMM d, yyyy"))</i>
+	                        <text>&nbsp;|&nbsp;</text>
+	                        <a href="https://twitter.com/aashishkoirala">Comments/Questions?</a>
                         }
                     </div>
                     <br />
@@ -90,22 +90,22 @@
                     }
                     @if (Model.Category != Category.Meta)
                     {
-                        <div class="small-text">
-                            @if (Model.Post.Previous != null)
-                            {
-                                <b>Previous:&nbsp;</b>
-                                <a href="~/blog/@(Model.Post.Previous.Slug)">@(Model.Post.Previous.Title)</a>
-                            }
-                            @if (Model.Post.Previous != null && Model.Post.Next != null)
-                            {
-                                <text>&nbsp;|&nbsp;</text>
-                            }
-                            @if (Model.Post.Next != null)
-                            {
-                                <b>Next:&nbsp;</b>
-                                <a href="~/blog/@(Model.Post.Next.Slug)">@(Model.Post.Next.Title)</a>
-                            }
-                        </div>
+	                    <div class="small-text">
+		                    @if (Model.Post.Previous != null)
+		                    {
+			                    <b>Previous:&nbsp;</b>
+			                    <a href="~/blog/@(Model.Post.Previous.Slug)">@(Model.Post.Previous.Title)</a>
+		                    }
+		                    @if (Model.Post.Previous != null && Model.Post.Next != null)
+		                    {
+			                    <text>&nbsp;|&nbsp;</text>
+		                    }
+		                    @if (Model.Post.Next != null)
+		                    {
+			                    <b>Next:&nbsp;</b>
+			                    <a href="~/blog/@(Model.Post.Next.Slug)">@(Model.Post.Next.Title)</a>
+		                    }
+	                    </div>
                     }
                 </div>
             </div>

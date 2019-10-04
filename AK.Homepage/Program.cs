@@ -1,4 +1,4 @@
-﻿/*******************************************************************************************************************************
+/*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -18,23 +18,27 @@
  * 
  *******************************************************************************************************************************/
 
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace AK.Homepage
 {
 	public static class Program
 	{
-		public static void Main(string[] args) => BuildWebHost(args).Run();
+		public static Task Main(string[] args) => BuildHost(args).RunAsync();
 
-		public static IWebHost BuildWebHost(string[] args)
+		public static IHost BuildHost(string[] args)
 		{
-			var builder = WebHost.CreateDefaultBuilder(args);
-			if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-				builder = builder.UseKestrel(o => o.Listen(IPAddress.Any, 5858));
-			return builder.UseStartup<Startup>().Build();
+			var builder = Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(w =>
+			{
+				w.UseStartup<Startup>();
+				if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+					w.UseKestrel(o => o.Listen(IPAddress.Any, 5858));
+			});
+			return builder.Build();
 		}
 	}
 }

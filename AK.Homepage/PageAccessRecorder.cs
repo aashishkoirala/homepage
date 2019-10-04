@@ -77,11 +77,9 @@ namespace AK.Homepage
 
 				try
 				{
-					using (var dbContext = new MainContext(_configuration))
-					{
-						dbContext.PageAccess.Add(pageAccess);
-						await dbContext.SaveChangesAsync(cancellationToken);
-					}
+					await using var dbContext = new MainContext(_configuration);
+					dbContext.PageAccess.Add(pageAccess);
+					await dbContext.SaveChangesAsync(cancellationToken);
 				}
 				catch (Exception ex)
 				{
