@@ -18,16 +18,16 @@
  * 
  *******************************************************************************************************************************/
 
-using System;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AK.Homepage
 {
-    public class ProfileRepository
+	public class ProfileRepository
     {
         private readonly Task<Profile> _loadProfileTask;
 
@@ -43,7 +43,8 @@ namespace AK.Homepage
         {
             logger.LogTrace("Loading profile database...");
 
-            await using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AK.Homepage.Profile");
+            await using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AK.Homepage.Profile.json") ??
+                                     Assembly.GetExecutingAssembly().GetManifestResourceStream("AK.Homepage.Profile");
             using var streamReader = new StreamReader(stream ?? throw new ArgumentNullException(nameof(stream)));
             var json = await streamReader.ReadToEndAsync();
             return JsonConvert.DeserializeObject<Profile>(json);

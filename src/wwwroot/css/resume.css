@@ -1,5 +1,5 @@
 /*******************************************************************************************************************************
- * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
+ * Copyright Â© 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
  *  
@@ -101,8 +101,8 @@ div.technologies {
     position: absolute;
     display: inline-block;
     text-align: left;
-    width: 100px;
-    left: 125px;
+    width: 150px;
+    left: 75px;
     top: 60px;
     background: lightgray;
     border-radius: 10px;
@@ -124,7 +124,7 @@ div.technologies {
     }
 
 div.resume-section {
-    width: 870px;
+    width: 820px;
 }
 
     div.resume-section ul {

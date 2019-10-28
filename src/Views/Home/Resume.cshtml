@@ -1,4 +1,4 @@
-﻿@*******************************************************************************************************************************
+@*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  *
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -60,24 +60,45 @@
                 <br />
                 <a href="@Model.LinkedInUrl">@Model.LinkedInUrl</a>
                 <div class="technologies">
-                    <b>Technologies &amp; Tools</b>
+	                <b>Tools / Tech / Practices</b>
+	                <br/><br/>
                     <ul>
                         @foreach (var t in Model.Technologies)
-                        {
-                            <li>@t</li>
-                        }
+						{
+							if (string.IsNullOrWhiteSpace(t))
+							{
+								<li>&nbsp;</li>
+							}
+							else if (t.StartsWith("  "))
+							{
+								<li style="margin-left: 10px">@t.Trim()</li>
+							}
+							else
+							{
+								<li>@t</li>
+							}
+						}
                     </ul>
                 </div>
             </div>
         </div>
         <div class="resume-section">
-            <h2>SUMMARY</h2>
-            <ul>
-                @foreach (var s in Model.Summary)
-                {
-                    <li>@s</li>
-                }
-            </ul>
+			@if (Model.Summary.Length == 1)
+			{
+				<br/>
+				@Model.Summary[0]
+				<br/><br/>
+			}
+			else
+			{
+				<h2>SUMMARY</h2>
+				<ul>
+					@foreach (var s in Model.Summary)
+					{
+						<li>@s</li>
+					}
+				</ul>
+			}
             <b>GitHub:</b>&nbsp;
             <a href="@Model.GitHubUrl">@Model.GitHubUrl</a><br />
             <b>Website/Blog:</b>&nbsp;
@@ -114,11 +135,26 @@
             }
         </div>
         <div class="resume-section technologies-small">
-            <h2>TECHNOLOGIES &amp; TOOLS</h2>
+            <h2>TOOLS, TECH &amp; PRACTICES</h2>
             <ul>
                 @foreach (var t in Model.Technologies)
                 {
-                    <li>@t</li>
+	                if (string.IsNullOrWhiteSpace(t))
+	                {
+		                <li style="list-style-type: none">&nbsp;</li>
+	                }
+	                else if (t.StartsWith("  "))
+	                {
+		                <li style="list-style-type: none">
+			                <ul>
+				                <li>@t.Trim()</li>
+			                </ul>
+		                </li>
+	                }
+	                else
+	                {
+		                <li>@t</li>
+	                }
                 }
             </ul>
             <br/>

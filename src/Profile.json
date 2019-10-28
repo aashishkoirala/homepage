@@ -65,48 +65,86 @@
     "gitHubUrl": "https://github.com/aashishkoirala",
     "websiteUrl": "https://www.aashishkoirala.com",
     "summary": [
-      "Seasoned software development professional with 14 years in the field seeking a hands-on role at the principal or architect level",
-      "Expertise in building and maintaining secure and scalable applications with .NET/C# and JS, DevOps on the Azure cloud, and leading and managing development teams"
+      "Seasoned software architect and developer with 15 years in the field building and maintaining secure and scalable applications. Major experience with .NET/C#, SQL, JS and leading and managing development teams. Recent focus on cloud native applications, DevOps and Azure."
     ],
     "technologies": [
-      ".NET / C#",
-      ".NET Core",
-      "ASP.NET",
-      "Azure",
-      "Service Fabric",
-      "DevOps",
-      "OAuth2/OIDC",
-      "NHibernate/EF",
-      "MSSQL/T-SQL",
+      ".NET/.NET Core",
+      "  C#",
+      "  ASP.NET Core",
+      "  EF Core",
+      "  SignalR",
+      "",
       "JavaScript",
-      "Angular",
-      "React",
-      "Node",
+      "  TypeScript",
+      "  Angular",
+      "  React",
+      "  Node",
+      "",
+      "SQL Server, T-SQL",
+      "",
+      "Azure",
+      "Kubernetes",
+      "Helm",
+      "Docker",
+      "Service Fabric",
+      "",
+      "Microservices",
+      "Twelve Factor",
+      "SOA, DDD",
+      "REST",
+      "",
+      "MongoDB, CosmosDB",
+      "ElasticSearch",
+      "",
+      "Azure Service Bus",
+      "RabbitMQ",
+      "Kafka",
+      "",
+      "OAuth2/OIDC, SAML",
+      "OWASP Remediation",
+      "",
       "Git",
-      "PowerShell"
+      "PowerShell",
+      "Bash",
+      "",
+      "DevOps",
+      "  Azure DevOps",
+      "  Jenkins",
+      "  Terraform",
+      "  Ansible",
+      "  ELK",
+      "  Prometheus",
+      "  Application Insights",
+      "",
+      "F#",
+      "Go",
+      "Rust"
     ],
     "experience": [
       {
-        "organization": "Radius",
-        "location": "Bedford, MA",
-        "title": "Architect, Software R&D",
-        "timeframe": "July 2012 - Present",
-        "responsibilities":
-          "Software architecture, modeling and development; leadership and mentoring of Agile offshore team; DevOps (cloud management, DB administration, build/deployment and other developer tooling)",
+        "organization": "Bond-Pro",
+        "location": "Remote",
+        "title": "Chief Architect, Software R&D",
+        "timeframe": "March 2019 – Present",
+        "responsibilities": "Software architecture and development; leadership of Agile offshore team; DevOps",
         "achievements": [
           {
-            "text": "Helped build and now oversee cloud based, microservices driven enterprise system",
-            "children": [
-              "Ported entire system from on-premises to Azure PaaS",
-              "Migrated from WCF to Service Fabric and from WIF/WS-Fed to OAuth2/OpenId Connect",
-              "Migrated from MSSQL on-premises to SQL Azure PaaS, from AppFabric cache to Redis",
-              "Rebuilt frontend using Angular and SignalR"
-            ]
+            "text": "Currently building the company’s flagship cloud-based offering"
           },
           {
-            "text":
-              "Led the team that built a sophisticated global payroll system from inception to release and now supporting over 150 customers across over 20 countries"
-          },
+            "text": "Working with .NET Core, Azure, EF Core, Kubernetes, Docker, Terraform among others"
+          }
+        ]
+      },
+      {
+        "organization": "Vistra (formerly Radius)",
+        "location": "Bedford, MA",
+        "title": "Architect, Software R&D",
+        "timeframe": "July 2012 - March 2019",
+        "responsibilities": "Software architecture and development; leadership of Agile offshore team; DevOps",
+        "achievements": [
+          { "text": "Helped build and oversaw cloud based, microservices driven enterprise system. Ported entire system from on-premises to cloud-native Azure PaaS. Rewrote service and security stack, rebuilt frontend using Angular and SignalR." },
+          { "text": "Led the team that built a sophisticated global payroll system from inception to release that supported over 150 customers across over 20 countries" },
           { "text": "Helped build a homegrown workflow orchestration system based on Service Bus messaging" }
         ]
       },
@@ -115,8 +153,7 @@
         "location": "Waltham, MA",
         "title": "Director of Engineering",
         "timeframe": "August 2008 - July 2012",
-        "responsibilities":
-          "Software architecture and development; management of Agile onshore/offshore teams; demonstrating deliverables to customers; representing Technology in sales calls.",
+        "responsibilities": "Software architecture and development; management of Agile onshore/offshore teams",
         "achievements": [
           {
             "text":
@@ -135,12 +172,10 @@
         "location": "Kathmandu, Nepal",
         "title": "Software Architect",
         "timeframe": "November 2004 - August 2008",
-        "responsibilities":
-          "Software architecture and development; management of various development teams; primary customer contact",
+        "responsibilities": "Software architecture and development; management of multiple development teams",
         "achievements": [
           {
-            "text":
-              "Built, delivered and maintained 12 large scale projects using various technologies (including .NET, Java/J2EE, C/C++, SQL Server and Oracle)"
+            "text": "Built, delivered and maintained 12 large scale projects using various technologies (including .NET, Java, C++, SQL Server and Oracle)"
           }
         ]
       }

@@ -124,14 +124,7 @@ namespace AK.Homepage
 					.AddKeyPerFile("/secrets", false)
 				: builder.AddEnvironmentVariables();
 
-			var configuration = builder.Build();
-
-			foreach (var (key, value) in configuration.AsEnumerable())
-			{
-				Console.WriteLine($"{key} = {value}");
-			}
-
-			return configuration;
+			return builder.Build();
 		}
 
 		private static void ConfigureHttpClient(HttpClient client, string baseUrl)
