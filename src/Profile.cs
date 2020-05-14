@@ -18,7 +18,9 @@
  * 
  *******************************************************************************************************************************/
 
- namespace AK.Homepage
+using System.Collections.Generic;
+
+namespace AK.Homepage
 {
     public class Profile
     {
@@ -37,13 +39,15 @@
         public class Resume
         {
 	        public string Name { get; set; } = string.Empty;
+			public string Subtitle { get; set; } = string.Empty;
             public string Location { get; set; } = string.Empty;
+			public string WorkStatus { get; set; } = string.Empty;
             public string Contact { get; set; } = string.Empty;
             public string LinkedInUrl { get; set; } = string.Empty;
             public string GitHubUrl { get; set; } = string.Empty;
             public string WebsiteUrl { get; set; } = string.Empty;
             public string[] Summary { get; set; } = new string[0];
-            public string[] Technologies { get; set; } = new string[0];
+			public Dictionary<string, string[]> Technologies { get; set; } = new Dictionary<string, string[]>();
             public ResumeExperience[] Experience { get; set; } = new ResumeExperience[0];
             public ResumeEducation[] Education { get; set; } = new ResumeEducation[0];
         }
@@ -52,22 +56,15 @@
         {
 			public string Organization { get; set; } = string.Empty;
             public string Location { get; set; } = string.Empty;
-            public string Title { get; set; } = string.Empty;
-			public string Timeframe { get; set; } = string.Empty;
-            public string Responsibilities { get; set; } = string.Empty;
-            public ResumeAchievement[] Achievements { get; set; } = new ResumeAchievement[0];
-        }
-
-        public class ResumeAchievement
-        {
-	        public string Text { get; set; } = string.Empty;
-            public string[] Children { get; set; } = new string[0];
+			public Dictionary<string, string> Titles { get; set; } = new Dictionary<string, string>();
+			public string[] Achievements { get; set; } = new string[0];
         }
 
         public class ResumeEducation
         {
 	        public string Degree { get; set; } = string.Empty;
             public string School { get; set; } = string.Empty;
+			public string Year { get; set; } = string.Empty;
         }
     }
 }

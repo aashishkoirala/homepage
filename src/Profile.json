@@ -60,136 +60,206 @@
   ],
   "professionalResume": {
     "name": "Aashish Koirala",
+    "subtitle": "Full Stack Developer & Hands-On Software Architect",
     "location": "Massachusetts, USA",
     "linkedInUrl": "https://www.linkedin.com/in/aashishkoirala",
+    "workStatus": "US Citizen",
     "gitHubUrl": "https://github.com/aashishkoirala",
     "websiteUrl": "https://www.aashishkoirala.com",
     "summary": [
-      "Seasoned software architect and developer with 15 years in the field building and maintaining secure and scalable applications. Major experience with .NET/C#, SQL, JS and leading and managing development teams. Recent focus on cloud native applications, DevOps and Azure."
+      "16 years’ hands-on experience designing, building and maintaining secure and scalable applications. Major experience with C#/.NET, SQL, JS with recent focus on microservices, DevOps and building cloud native applications with .NET Core, Azure, AWS and Kubernetes."
     ],
-    "technologies": [
-      ".NET/.NET Core",
-      "  C#",
-      "  ASP.NET Core",
-      "  EF Core",
-      "",
-      "JavaScript",
-      "  TypeScript",
-      "  Angular",
-      "  React",
-      "  Node",
-      "",
-      "SQL Server, T-SQL",
-      "",
-      "Azure",
-      "Kubernetes, AKS",
-      "Helm",
-      "Docker",
-      "",
-      "Microservices",
-      "Twelve Factor",
-      "DDD",
-      "REST",
-      "",
-      "MongoDB",
-      "ElasticSearch",
-      "Cassandra",
-      "Redis",
-      "Azure Service Bus",
-      "RabbitMQ",
-      "Kafka",
-      "",
-      "OAuth2/OIDC, SAML",
-      "OWASP Remediation",
-      "",
-      "Git",
-      "PowerShell",
-      "Bash",
-      "",
-      "DevOps",
-      "  CI/CD",
-      "    Azure DevOps",
-      "    Jenkins",
-      "  IaC",
-      "    Terraform",
-      "    Ansible",
-      "  Observability",
-      "    EFK (Fluent-Bit, Kibana)",
-      "    Prometheus, Grafana",
-      "    OpenTracing, Jaeger",
-      "",
-      "F#",
-      "Go",
-      "Rust"
-    ],
+    "technologies": {
+      ".NET/.NET Core": [
+        "C#",
+        "ASP.NET Core",
+        "EF Core",
+        "WinForms",
+        "WPF",
+        "MVC",
+        "WebAPI",
+        "SignalR",
+        "IdentityServer",
+        "WCF",
+        "Razor"
+      ],
+      "Frontend/JS": [
+        "JavaScript (ES5/6)",
+        "TypeScript",
+        "Angular",
+        "React",
+        "Webpack",
+        "NPM",
+        "HTML",
+        "CSS"
+      ],
+      "Databases": [
+        "SQL Server/T-SQL",
+        "MongoDB",
+        "ElasticSearch",
+        "Redis",
+        "CosmosDB",
+        "Azure Table",
+        "AWS DocumentDB",
+        "DynamoDB"
+      ],
+      "Architecture": [
+        "Microservices",
+        "DDD",
+        "SOA",
+        "SOLID",
+        "REST",
+        "12-Factor",
+        "4+1",
+        "UML",
+        "GoF",
+        "Containers"
+      ],
+      "Messaging": [
+        "RabbitMQ",
+        "Kafka",
+        "Azure Service Bus",
+        "AWS SQS/SNS"
+      ],
+      "Security": [
+        "OAuth2/OIDC",
+        "WS-Fed",
+        "SAML",
+        "OWASP"
+      ],
+      "Tools": [
+        "Git",
+        "PowerShell",
+        "Bash",
+        "Helm",
+        "Visual Studio",
+        "VS Code"
+      ],
+      "Platforms": [
+        "Azure",
+        "AWS",
+        "Kubernetes",
+        "Docker",
+        "Linux",
+        "Windows",
+        "Serverless"
+      ],
+      "DevOps": [
+        "Azure DevOps",
+        "Jenkins",
+        "Terraform",
+        "Ansible",
+        "FluentBit",
+        "Kibana",
+        "Prometheus",
+        "Grafana",
+        "Jaeger"
+      ],
+      "Cloud (Azure)": [
+        "Kubernetes (AKS/ACR)",
+        "SQL",
+        "CosmosDB",
+        "Key Vault",
+        "Storage",
+        "AD",
+        "Service Bus",
+        "Functions",
+        "App Service",
+        "ACI"
+      ],
+      "Cloud (AWS)": [
+        "Kubernetes (EKS/ECR)",
+        "DocumentDB",
+        "DynamoDB",
+        "Lambda",
+        "SQS",
+        "SNS",
+        "Beanstalk",
+        "S3",
+        "Fargate"
+      ],
+      "Other Stacks": [
+        "Java",
+        "Go",
+        "F#",
+        "Rust",
+        "Python",
+        "Node"
+      ]
+    },
     "experience": [
       {
-        "organization": "Bond-Pro",
-        "location": "Remote",
-        "title": "Chief Architect, Software R&D",
-        "timeframe": "March 2019 – Present",
-        "responsibilities": "Software architecture and development; leadership of Agile offshore team; DevOps",
+        "organization": "EBSCO Information Services",
+        "location": "Ipswich, MA",
+        "titles": { "System Architect": "2020 – Present" },
         "achievements": [
-          {
-            "text": "Currently building the company’s flagship cloud-based offering"
-          },
-          {
-            "text": "Working with .NET Core, Azure, EF Core, Kubernetes, Docker, Terraform among others"
-          }
+          "Worked on transition of eBooks platform from on-prem SQL Server based monolith to microservices on AWS using Kubernetes (EKS), Lambda and NoSQL",
+          "Worked in an Agile SAFe environment"
         ]
       },
       {
-        "organization": "Vistra (formerly Radius)",
-        "location": "Bedford, MA",
-        "title": "Architect, Software R&D",
-        "timeframe": "July 2012 - March 2019",
-        "responsibilities": "Software architecture and development; leadership of Agile offshore team; DevOps",
+        "organization": "Bond-Pro",
+        "location": "Remote",
+        "titles": { "Chief Architect (Software, Hands-On)": "2019 – 2020" },
         "achievements": [
-          { "text": "Helped build and oversaw cloud based, microservices driven enterprise system. Ported entire system from on-premises to cloud-native Azure PaaS. Rewrote service and security stack, rebuilt frontend using Angular and SignalR." },
-          { "text": "Led the team that built a sophisticated global payroll system from inception to release that supported over 150 customers across over 20 countries" },
-          { "text": "Helped build a homegrown workflow orchestration system based on Service Bus messaging" }
+          "Designed and built microservices based surety bond submission system using .NET Core, Azure, EF Core, Kubernetes, Docker, Terraform and Angular",
+          "Led Agile offshore team; also acted as DevOps resource"
+        ]
+      },
+      {
+        "organization": "Vistra / Radius / HSP",
+        "location": "Bedford, MA",
+        "titles": {
+          "Architect (Software, Hands-On)": "2015 - 2019",
+          "Technical Lead": "2012 - 2015"
+        },
+        "achievements": [
+          "Ported on-prem IIS based system to cloud-native Azure PaaS",
+          "Rewrote service and security stack; rebuilt frontend using Angular, SignalR",
+          "Built global payroll system that supports 150 customers across 20 countries",
+          "Built workflow orchestration system based on Service Bus Messaging",
+          "Led Agile offshore team; also acted as DevOps resource"
         ]
       },
       {
         "organization": "Verisk Health",
         "location": "Waltham, MA",
-        "title": "Director of Engineering",
-        "timeframe": "August 2008 - July 2012",
-        "responsibilities": "Software architecture and development; management of Agile onshore/offshore teams",
+        "titles": {
+          "Engineering Director": "2012 - 2012",
+          "Engineering Manager": "2011 - 2012",
+          "Principal Engineer": "2008 - 2011"
+        },
         "achievements": [
-          {
-            "text":
-              "Took over a post-acquisition, undocumented and abandoned codebase, brought it back to life, re-engineering it in the process, and got it ready for primetime, thus becoming the resident expert for the system"
-          },
-          { "text": "Introduced standard ETL tools and practices to the BI delivery process" },
-          { "text": "Helped transition the software development process from waterfall to Agile" },
-          {
-            "text":
-              "In charge of the organization's flagship OLAP-driven ASP.NET-based healthcare analytics platform that served several large-sized customers"
-          }
+          "Took over post-acquisition abandoned codebase, revived and re-engineered it; became the resident expert for the system that then served as the company’s flagship healthcare analytics platform",
+          "Introduced standard ETL tools and practices to the BI delivery process",
+          "Helped transition the software development process from waterfall to Agile",
+          "Led and managed Agile onshore and offshore teams"
         ]
       },
       {
         "organization": "D2Hawkeye Services",
         "location": "Kathmandu, Nepal",
-        "title": "Software Architect",
-        "timeframe": "November 2004 - August 2008",
-        "responsibilities": "Software architecture and development; management of multiple development teams",
+        "titles": {
+          "Software Architect (Hands-On)": "2007 - 2008",
+          "Senior Software Engineer": "2005 - 2007",
+          "Software Engineer": "2004 - 2005"
+        },
         "achievements": [
-          {
-            "text": "Built, delivered and maintained 12 large scale projects using various technologies (including .NET, Java, C++, SQL Server and Oracle)"
-          }
+          "Built and maintained 12 medium to large scale custom software projects using .NET, Java, C++, SQL Server and Oracle for multiple clients",
+          "Led and managed multiple development teams"
         ]
       }
     ],
     "education": [
       {
         "degree": "M.S. in Computer Systems Engineering",
-        "school": "Boston University, Boston, MA"
+        "school": "Boston University, Boston, MA",
+        "year": "2010"
       },
       {
         "degree": "B.E. in Computer Engineering",
-        "school": "Tribhuvan University Institute of Engineering, Nepal"
+        "school": "Tribhuvan University Institute of Engineering, Nepal",
+        "year": "2005"
       }
     ]
   }
