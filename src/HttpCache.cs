@@ -104,6 +104,7 @@ namespace AK.Homepage
             var path = context.Request.Path.Value;
             if (context.Request.QueryString.HasValue) path += context.Request.QueryString.Value;
             var isGZipCompressed = context.Request.Headers["Accept-Encoding"].Contains("gzip");
+			if (context.Request.Cookies.TryGetValue("AK-DarkMode", out var darkMode) && darkMode == "True") path += "|Dark";
             var key = (path, isGZipCompressed);
 
             _logger.LogTrace("Looking for resource in HttpCache: path = {path}, isGZipCompressed = {isGZipCompressed}",

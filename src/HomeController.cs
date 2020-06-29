@@ -1,4 +1,4 @@
-﻿/*******************************************************************************************************************************
+/*******************************************************************************************************************************
  * Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
  * 
  * This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
@@ -24,11 +24,13 @@ using Microsoft.Net.Http.Headers;
 using System;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace AK.Homepage
 {
-    [ServiceFilter(typeof(LogActionAndHandleErrorFilter))]
+	[ServiceFilter(typeof(LogActionAndHandleErrorFilter))]
     public class HomeController : Controller
     {
         private static readonly Post _notFoundPost = CreateNotFoundPost();
@@ -36,17 +38,23 @@ namespace AK.Homepage
         private readonly ProfileRepository _profileRepository;
         private readonly AccessKeyValidator _accessKeyValidator;
         private readonly MetadataGenerator _metadataGenerator;
+		private readonly PageAccessRecorder _pageAccessRecorder;
 
-        public HomeController(BlogCache blogCache, ProfileRepository profileRepository,
-            AccessKeyValidator accessKeyValidator, MetadataGenerator metadataGenerator)
+        public HomeController(
+			BlogCache blogCache,
+			ProfileRepository profileRepository,
+            AccessKeyValidator accessKeyValidator,
+			MetadataGenerator metadataGenerator,
+			PageAccessRecorder pageAccessRecorder)
         {
             _blogCache = blogCache;
             _profileRepository = profileRepository;
             _accessKeyValidator = accessKeyValidator;
             _metadataGenerator = metadataGenerator;
+			_pageAccessRecorder = pageAccessRecorder;
         }
 
-        [HttpGet]
+        [HttpGet, ThemeFilter]
         public async Task<IActionResult> Index()
         {
             var (techPostLinks, nonTechPostLinks) = await _blogCache.GetHomePostLinks();
@@ -62,7 +70,7 @@ namespace AK.Homepage
             });
         }
 
-        [HttpGet("blog/{slug}")]
+        [HttpGet("blog/{slug}"), ThemeFilter]
         public async Task<IActionResult> Blog(string slug)
         {
             var post = await _blogCache.GetPost(slug);
@@ -75,7 +83,7 @@ namespace AK.Homepage
             return View(model);
         }
 
-        [HttpGet("blog")]
+        [HttpGet("blog"), ThemeFilter]
         public async Task<IActionResult> BlogList(string type)
         {
             Category category;
@@ -88,7 +96,7 @@ namespace AK.Homepage
             return View("Blog", new BlogViewModel {Category = category, MainLinks = mainLinks});
         }
 
-        [HttpGet("about")]
+        [HttpGet("about"), ThemeFilter]
         public async Task<IActionResult> About()
         {
             var post = await _blogCache.GetPost("about-me");
@@ -152,6 +160,23 @@ namespace AK.Homepage
             Response.Headers[HeaderNames.CacheControl] = "no-cache";
             return Content(rssXml, "text/xml", Encoding.UTF8);
         }
+
+		[HttpGet("stats/{accessKey}"), HttpGet("stats/{accessKey}/{path}"), ThemeFilter]
+		public async Task<IActionResult> Stats(string accessKey, string? path = null, CancellationToken cancellationToken = default)
+		{
+			_accessKeyValidator.Validate(accessKey);
+
+			if (path == null)
+			{
+				var summary = await _pageAccessRecorder.GetStats(cancellationToken);
+				TempData[nameof(accessKey)] = accessKey;
+				return View("PageAccessSummary", summary);
+			}
+
+			path = HttpUtility.UrlDecode(path);
+			var details = await _pageAccessRecorder.GetStatsForPath(path, cancellationToken);
+			return View("PageAccessDetail", details);
+		}
 
         private IActionResult BlogNotFound()
         {

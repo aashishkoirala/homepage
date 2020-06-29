@@ -38,6 +38,21 @@ body {
     }
 }
 
+.theme-toggle {
+	position: absolute;
+	top: 5px;
+	right: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background: black;
+	border-radius: 5px;
+	color: white;
+	font-size: small;
+	font-family: 'Open Sans', arial;
+}
+
 a:link, a:visited, a:active {
     text-decoration: none;
     color: #667799;

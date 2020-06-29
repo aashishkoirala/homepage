@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Net.Http.Headers;
+using System;
 using System.Net;
 using System.Net.Mime;
 using System.Threading.Tasks;
@@ -22,14 +23,17 @@ namespace AK.Homepage
 		{
 			await _next(context);
 
-			if (context.Response.StatusCode != (int) HttpStatusCode.OK &&
-			    context.Response.StatusCode != (int) HttpStatusCode.NotModified) return;
+			if (context.Response.StatusCode != (int)HttpStatusCode.OK &&
+				context.Response.StatusCode != (int)HttpStatusCode.NotModified) return;
 
 			if (context.Response.ContentType != null && !context.Response.ContentType.Contains(MediaTypeNames.Text.Html)) return;
+
+			if (context.Request.Path.HasValue && context.Request.Path.Value.StartsWith("/stats", StringComparison.OrdinalIgnoreCase)) return;
 
 			_recorder.Record(new PageAccess
 			{
 				Path = context.Request.GetEncodedPathAndQuery(),
+				TimeStamp = DateTimeOffset.UtcNow,
 				UserAgent = context.Request.Headers[HeaderNames.UserAgent].ToString(),
 				IpAddress = context.Connection.RemoteIpAddress.ToString()
 			});

@@ -61,6 +61,7 @@ namespace AK.Homepage
 				.AddSingleton<AccessKeyValidator>()
 				.AddSingleton<MetadataGenerator>()
 				.AddSingleton<PageAccessRecorderIgnoredUserAgents>()
+				.AddSingleton<PageAccessRecorderIgnoredIpAddresses>()
 				.AddSingleton<PageAccessRecorder>()
 				.AddScoped<LogActionAndHandleErrorFilter>();
 
@@ -101,6 +102,7 @@ namespace AK.Homepage
 
 			app
 				.UseHealthChecks("/health")
+				.UseMiddleware<ThemeSwitcherMiddleware>()
 				.UseMiddleware<PageAccessRecorderMiddleware>()
 				.UseMiddleware<HttpCache>()
 				.UseStatusCodePagesWithReExecute(errorPath)

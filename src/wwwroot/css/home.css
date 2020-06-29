@@ -31,11 +31,27 @@ body {
 }
 
 @media (max-width: 500px) {
-    .header {
+	.header {
         height: 85px;
         background: black url('../images/header-small.png') no-repeat;
     }
 }
+
+.theme-toggle {
+	position: absolute;
+	top: 5px;
+	right: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background: black;
+	border-radius: 5px;
+	color: white;
+	font-size: small;
+	font-family: 'Open Sans', arial;
+}
+
 @media (max-width: 400px) {
     .contact-item {
         display: none;
@@ -135,6 +151,20 @@ li {
 
 .no-bullet {
     list-style-type: none;
+}
+
+div.detail-table {
+	padding: 10px;
+}
+
+div.detail-table div {
+	display: table-row;
+	padding: 10px;
+}
+
+div.detail-table div div {
+	display: table-cell;
+	padding: 10px;
 }
 
 @font-face {

@@ -1,0 +1,69 @@
+@*******************************************************************************************************************************
+	* Copyright © 2018-2019 Aashish Koirala <https://www.aashishkoirala.com>
+	*
+	* This file is part of Aashish Koirala's Personal Website and Blog (AKPWB).
+	*
+	* AKPWB is free software: you can redistribute it and/or modify
+	* it under the terms of the GNU General Public License as published by
+	* the Free Software Foundation, either version 3 of the License, or
+	* (at your option) any later version.
+	*
+	* AKPWB is distributed in the hope that it will be useful,
+	* but WITHOUT ANY WARRANTY; without even the implied warranty of
+	* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	* GNU General Public License for more details.
+	*
+	* You should have received a copy of the GNU General Public License
+	* along with AKPWB.  If not, see <http://www.gnu.org/licenses/>.
+	*
+	*******************************************************************************************************************************@
+
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model IEnumerable<AK.Homepage.PageAccess>
+@* ReSharper disable Html.PathError *@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<meta name="robots" content="index,follow" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="description" content="Aashish Koirala: Software Architect and Developer Personal Website and Blog" />
+	<meta name="apple-mobile-web-app-title" content="Aashish Koirala">
+	<meta name="application-name" content="Aashish Koirala">
+	<meta name="msapplication-TileColor" content="#00aba9">
+	<meta name="theme-color" content="#ffffff">
+	<link rel="apple-touch-icon" sizes="180x180" href="~/images/favicons/apple-touch-icon.png" asp-append-version="true" />
+	<link rel="icon" type="image/png" sizes="32x32" href="~/images/favicons/favicon-32x32.png" asp-append-version="true" />
+	<link rel="icon" type="image/png" sizes="16x16" href="~/images/favicons/favicon-16x16.png" asp-append-version="true" />
+	<link rel="manifest" href="~/site.webmanifest" asp-append-version="true" />
+	<link rel="mask-icon" href="~/images/favicons/safari-pinned-tab.svg" color="#5bbad5" asp-append-version="true" />
+	<link rel="stylesheet" type="text/css" href="~/css/home.css" asp-append-version="true" />
+	@if (TempData["dark"] != null && (bool)TempData["dark"])
+	{
+		<link rel="stylesheet" type="text/css" href="~/css/home-dark.css" asp-append-version="true" />
+	}
+	<title>Aashish Koirala - Page Access Detail</title>
+</head>
+<body>
+	<partial name="Header" />
+	<div class="section detail-table">
+		<div>
+			<div><b>Date/Time</b></div>
+			<div><b>Path</b></div>
+			<div><b>IP Address</b></div>
+			<div><b>User Agent</b></div>
+		</div>
+		@foreach (var pa in Model)
+		{
+			<div>
+				<div>@pa.TimeStamp</div>
+				<div>@pa.Path</div>
+				<div>@pa.IpAddress</div>
+				<div>@pa.UserAgent</div>
+			</div>
+		}
+	</div>
+</body>
+</html>
